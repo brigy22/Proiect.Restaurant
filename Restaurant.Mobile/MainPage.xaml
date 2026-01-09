@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Restaurant.Mobile.MainPage"
+             Title="Restaurant Mobile">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Label Text="Menu" FontSize="24" />
+
+            <Button Text="Load Menu" Clicked="OnLoadMenu" />
+
+            <CollectionView x:Name="MenuList" HeightRequest="260">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                            <Label Text="{Binding Name}" FontAttributes="Bold" />
+                            <Label Grid.Row="1" Text="{Binding Price, StringFormat='{}{0:0.00}'}" />
+
+                            <Button Grid.Column="1"
+                                    Grid.RowSpan="2"
+                                    Text="Add"
+                                    Padding="14,6"
+                                    Clicked="OnAddToCart"
+                                    CommandParameter="{Binding .}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Cart" FontSize="18" />
+
+            <CollectionView x:Name="CartList" HeightRequest="220">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" ColumnDefinitions="*,Auto,Auto,Auto" RowDefinitions="Auto,Auto">
+
+                            <Label Text="{Binding Name}" FontAttributes="Bold" />
+                            <Label Grid.Row="1"
+                                   Text="{Binding Price, StringFormat='Price: {0:0.00}'}"
+                                   FontSize="12" />
+
+                            <Label Grid.Column="1"
+                                   Grid.RowSpan="2"
+                                   Text="{Binding Quantity, StringFormat='x{0}'}"
+                                   VerticalOptions="Center"
+                                   Margin="10,0" />
+
+                            <Button Grid.Column="2"
+                                    Text="+"
+                                    Padding="10,6"
+                                    Clicked="OnCartIncrease"
+                                    CommandParameter="{Binding .}" />
+
+                            <Button Grid.Column="3"
+                                    Text="-"
+                                    Padding="10,6"
+                                    Clicked="OnCartDecrease"
+                                    CommandParameter="{Binding .}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Create Order" FontSize="18" />
+
+            <Entry x:Name="CustomerIdEntry"
+                   Placeholder="CustomerId (ex: 1)"
+                   Keyboard="Numeric" />
+
+            <Label x:Name="TotalLabel"
+                   Text="Total: 0.00"
+                   FontAttributes="Bold"
+                   FontSize="16" />
+
+            <Button Text="Place Order" Clicked="OnPlaceOrder" />
+
+            <Button Text="Load Orders" Clicked="OnLoadOrders" />
+
+            <CollectionView x:Name="OrdersList" HeightRequest="260">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout Padding="10">
+                            <Label Text="{Binding Id, StringFormat='Order #{0}'}" FontAttributes="Bold" />
+                            <Label Text="{Binding TotalAmount, StringFormat='Total: {0:0.00}'}" />
+                            <Label Text="{Binding CreatedAt}" FontSize="12" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

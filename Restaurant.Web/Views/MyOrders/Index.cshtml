@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Restaurant.Web.Models.Order>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<h1>My Orders</h1>
+
+@if (!Model.Any())
+{
+    <p>You have no orders yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Created At</th>
+                <th>Status</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.CreatedAt</td>
+                    <td>@order.Status</td>
+                    <td>@order.TotalAmount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

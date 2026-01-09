@@ -1,0 +1,64 @@
+﻿@model Restaurant.Web.Models.MenuCategory
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>MenuCategory</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+    <hr />
+    <h4>Produse în această categorie</h4>
+
+    @{
+        var items = ViewBag.ItemsInCategory as IEnumerable<Restaurant.Web.Models.MenuItem>;
+    }
+
+    @if (items == null || !items.Any())
+    {
+        <p>Nu există produse în această categorie.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var it in items)
+                {
+                    <tr>
+                        <td>@it.Name</td>
+                        <td>@it.Price</td>
+                        <td>@it.Stock</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
